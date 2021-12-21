@@ -4,11 +4,10 @@ import useFetch from 'use-http';
 
 export const Asset: React.FC = () => {
   const { id } = useParams();
-  const imageURL = `https://images-api.nasa.gov/asset/${id}`;
   const metadataURL = `https://images-assets.nasa.gov/image/${id}/metadata.json`;
-
-  const { data: imageData, loading: imageLoading } = useFetch(imageURL, []);
+  const imageURL = `https://images-api.nasa.gov/asset/${id}`;
   const { data: metadata, loading: metadataLoading } = useFetch(metadataURL, []);
+  const { data: imageData, loading: imageLoading } = useFetch(imageURL, []);
 
   if (imageLoading || metadataLoading) {
     return <Typography>Loading...</Typography>;
