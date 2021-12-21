@@ -1,22 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { SearchAndResults } from './components/search-and-results';
-import { Asset } from './components/asset';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="search" element={<SearchAndResults />} />
-        <Route path="asset/:id" element={<Asset />} />
-      </Routes>
+      <App />
     </BrowserRouter>
-    ,
   </React.StrictMode>,
   document.getElementById('root')
 );
