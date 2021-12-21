@@ -57,7 +57,14 @@ export const SearchAndResults: React.FC = () => {
           What would you like to see?
         </InputLabel>
         <Input
-          sx={{ background: 'grey', color: 'white', padding: 2 }}
+          sx={{
+            background: 'black',
+            color: 'white',
+            fontSize: '1.2rem',
+            padding: 2,
+            border: 'solid 1px white',
+            borderRadius: 2,
+          }}
           id="standard-adornment-search"
           type="text"
           value={searchInput}
@@ -65,7 +72,7 @@ export const SearchAndResults: React.FC = () => {
           endAdornment={
             <InputAdornment position="end">
               <IconButton aria-label="search" onClick={handleClick}>
-                <SearchIcon />
+                <SearchIcon fontSize="large" color="primary" />
               </IconButton>
             </InputAdornment>
           }
@@ -83,6 +90,9 @@ export const SearchAndResults: React.FC = () => {
         {request.loading
           ? 'Loading...'
           : response.data?.collection?.items?.map((item: SpecificMediaItem) => {
+              const nasaId = item.data[0].nasa_id;
+              const imageTitle = item.data[0].title;
+              const imageHref = item.links[0].href;
               return (
                 <Grid
                   item
@@ -92,14 +102,17 @@ export const SearchAndResults: React.FC = () => {
                     borderStyle: 'solid',
                     borderWidth: 1,
                     borderColor: '#ccc',
+                    borderRadius: 2,
                   }}
                 >
-                  <Box>
-                    <Typography variant="body1" style={{ padding: 20 }}>
-                      {item.data[0].title}
-                    </Typography>
-                    <img src={item.links[0].href} alt="test" />
-                  </Box>
+                  <a href={`asset/${nasaId}`}>
+                    <Box padding="5">
+                      <Typography paragraph style={{ padding: 10 }}>
+                        {imageTitle}
+                      </Typography>
+                      <img style={{ padding: 10 }} src={imageHref} alt="test" />
+                    </Box>
+                  </a>
                 </Grid>
               );
             })}
