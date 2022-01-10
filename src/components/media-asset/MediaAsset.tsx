@@ -1,13 +1,13 @@
-import { Typography } from '@mui/material';
+import React from 'react';
 import { useParams } from 'react-router';
-import useFetch from 'use-http';
+import { Typography } from '@mui/material';
+import { useFetchMetaDataQuery, useFetchAssetQuery } from '../../api/NasaApiSlice';
+import { Header } from '../header/Header';
 
-export const Asset: React.FC = () => {
+export const MediaAsset: React.FC = () => {
   const { id } = useParams();
-  const metadataURL = `https://images-assets.nasa.gov/image/${id}/metadata.json`;
-  const imageURL = `https://images-api.nasa.gov/asset/${id}`;
-  const { data: metadata, loading: metadataLoading } = useFetch(metadataURL, []);
-  const { data: imageData, loading: imageLoading } = useFetch(imageURL, []);
+  const { data: metadata, isFetching: metadataLoading } = useFetchMetaDataQuery(id);
+  const { data: imageData, isFetching: imageLoading } = useFetchAssetQuery(id);
 
   if (imageLoading || metadataLoading) {
     return <Typography>Loading...</Typography>;
@@ -19,11 +19,12 @@ export const Asset: React.FC = () => {
     const imageHrefOriginal = imageData.collection.items[0].href;
 
     return (
-      <div>
+      <React.Fragment>
+        <Header />
         <Typography variant="h2">{title}</Typography>
         <Typography variant="body1">{description}</Typography>
         <img src={imageHrefOriginal} alt="Some text" />
-      </div>
+      </React.Fragment>
     );
   }
 

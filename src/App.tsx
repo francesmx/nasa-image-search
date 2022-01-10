@@ -1,15 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Asset } from './components/asset';
-import { SearchAndResults } from './components/search-and-results';
+import { SearchPage } from './components/search/SearchPage';
+import { MediaAsset } from './components/media-asset/MediaAsset';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<SearchAndResults />} />
-        <Route path="search" element={<SearchAndResults />} />
-        <Route path="asset/:id" element={<Asset />} />
+        <Route path="/" element={<SearchPage />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="search/:query" element={<SearchPage />} />
+        <Route path="asset/:id" element={<MediaAsset />} />
       </Routes>
     </div>
   );
