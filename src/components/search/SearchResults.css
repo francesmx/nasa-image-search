@@ -3,10 +3,21 @@
   padding: 0;
   columns: 250px auto;
   width: 85vw;
-  display: block;
 }
 
-@media only screen and (max-width: 599px) {
+@media only screen and (min-width: 501px) and (max-width: 768px) {
+  .searchResults {
+    columns: 200px auto;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 500px) {
+  .searchResults {
+    columns: 175px auto;
+  }
+}
+
+@media only screen and (max-width: 320px) {
   .searchResults {
     columns: 150px auto;
   }
