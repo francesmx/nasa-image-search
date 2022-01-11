@@ -8,10 +8,10 @@ type SearchResultsProps = {
 
 export const SearchResults: React.FC<SearchResultsProps> = ({ items }) => {
   return (
-    <div className="searchResults">
+    <ul className="searchResults">
       {items.map((item: SpecificMediaItem) => {
         return <SearchResult item={item} key={item.data[0].nasa_id} />;
       })}
-    </div>
+    </ul>
   );
 };
