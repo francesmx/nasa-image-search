@@ -13,11 +13,11 @@ export const SearchResult: React.FC<SearchResultProps> = ({ item }) => {
   const imageHref = item.links[0].href;
 
   return (
-    <li key={item.data[0].nasa_id} style={{ display: 'inline-block' }}>
+    <li key={item.data[0].nasa_id} className="imageListItem">
       <a href={`asset/${nasaId}`}>
         <div className="searchResult">
+          <img src={imageHref} alt={imageTitle} />
           <Typography className="searchResultTitle">{imageTitle}</Typography>
-          <img style={{ padding: '0 10px 10px 10px' }} src={imageHref} alt="test" />
         </div>
       </a>
     </li>
