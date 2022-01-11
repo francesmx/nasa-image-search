@@ -1,3 +1,4 @@
+import './SearchResults.css';
 import { SpecificMediaItem } from '../../shared/types';
 import { SearchResult } from './SearchResult';
 
@@ -7,16 +8,7 @@ type SearchResultsProps = {
 
 export const SearchResults: React.FC<SearchResultsProps> = ({ items }) => {
   return (
-    <div
-      style={{
-        margin: '30px auto',
-        padding: 0,
-        columnCount: 5,
-        width: '90vw',
-        display: 'block',
-      }}
-    >
-      {/* Need to make the column count responsive */}
+    <div className="searchResults">
       {items.map((item: SpecificMediaItem) => {
         return <SearchResult item={item} key={item.data[0].nasa_id} />;
       })}
