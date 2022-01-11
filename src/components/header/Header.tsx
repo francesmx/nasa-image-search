@@ -8,13 +8,13 @@ export const Header: React.FC = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '30px 0px',
+        padding: 20,
       }}
     >
       <a href="/search">
         <img src={logo} alt="NASA logo" style={{ margin: '20px 1  0px' }} />
       </a>
-      <Typography variant="h1" style={{ fontSize: '2rem' }}>
+      <Typography variant="h1" style={{ fontSize: '1.5rem' }}>
         NASA Image, Video &amp; Audio Library
       </Typography>
     </div>

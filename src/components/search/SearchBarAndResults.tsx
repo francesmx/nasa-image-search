@@ -31,8 +31,8 @@ export const SearchBarAndResults: React.FC = () => {
 
   return (
     <React.Fragment>
-      <FormControl sx={{ m: 1, width: '50vw' }} variant="outlined" color="primary">
-        <InputLabel sx={{ fontSize: '1.2rem', color: 'white' }} htmlFor="standard-adornment-search">
+      <FormControl sx={{ width: '60vw' }} variant="outlined" color="primary">
+        <InputLabel sx={{ fontSize: '1rem', color: 'white' }} htmlFor="standard-adornment-search">
           What would you like to see?
         </InputLabel>
         <Input
