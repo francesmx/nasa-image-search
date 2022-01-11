@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
@@ -9,6 +10,8 @@ export const SearchBarAndResults: React.FC = () => {
   const [searchInput, setSearchInput] = useState('');
   const [skip, setSkip] = useState(true);
   const { data, isFetching } = useFetchNasaAssetsQuery(searchInput, { skip });
+  const params = new URLSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -21,6 +24,8 @@ export const SearchBarAndResults: React.FC = () => {
   };
 
   const handleClick = () => {
+    params.append('q', searchInput);
+    navigate({ search: params.toString() });
     setSkip(false);
   };
 
