@@ -8,7 +8,7 @@ export const nasaApiSlice = createApi({
   }),
   endpoints(builder) {
     return {
-      fetchNasaAssets: builder.query<NasaApiResponse | void, string | void>({
+      fetchNasaAssets: builder.query<NasaApiResponse | void, string | null>({
         query(searchTerms) {
           return `/search?&media_type=image&q=${searchTerms}`;
         },

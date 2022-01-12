@@ -5,28 +5,39 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import { SearchResults } from './SearchResults';
 import { useFetchNasaAssetsQuery } from '../../api/NasaApiSlice';
+import { useQuery } from '../../shared/hooks';
 
 export const SearchBarAndResults: React.FC = () => {
-  const [searchInput, setSearchInput] = useState('');
+  // keeps track of what the user is typing
+  const [searchBarInput, setSearchBarInput] = useState('');
+
+  // the query string from the URL parameter
+  const [queryStringToSearch, setQueryStringToSearch] = useState<string | null>(' ');
+
+  // skip says - don't make this API call just yet
   const [skip, setSkip] = useState(true);
-  const { data, isFetching } = useFetchNasaAssetsQuery(searchInput, { skip });
-  const params = new URLSearchParams();
+
+  const { data, isFetching } = useFetchNasaAssetsQuery(queryStringToSearch, { skip });
   const navigate = useNavigate();
+  let query = useQuery();
+  const params = new URLSearchParams();
 
   useEffect(() => {
-    if (data) {
-      setSkip(true);
+    let q = query.get('q');
+    if (q) {
+      setQueryStringToSearch(q);
+      setSearchBarInput(q);
+      setSkip(false);
     }
-  }, [data]);
+  }, [query]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event.target.value);
+    setSearchBarInput(event.target.value);
   };
 
   const handleClick = () => {
-    params.append('q', searchInput);
+    params.append('q', searchBarInput);
     navigate({ search: params.toString() });
-    setSkip(false);
   };
 
   return (
@@ -46,7 +57,7 @@ export const SearchBarAndResults: React.FC = () => {
           }}
           id="standard-adornment-search"
           type="text"
-          value={searchInput}
+          value={searchBarInput}
           onChange={handleInputChange}
           endAdornment={
             <InputAdornment position="end">
