@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { Typography } from '@mui/material';
 import { useFetchMetaDataQuery, useFetchAssetQuery } from '../../api/NasaApiSlice';
 import { Header } from '../header/Header';
+import { ImageExifData } from '../../shared/types';
 
 export const MediaAsset: React.FC = () => {
   const { id } = useParams();
@@ -17,16 +18,51 @@ export const MediaAsset: React.FC = () => {
     const title = metadata['AVAIL:Title'];
     const description = metadata['AVAIL:Description'];
     const imageHrefOriginal = imageData.collection.items[0].href;
+    const sortedMetadataKeys = Object.keys(metadata).sort();
 
     return (
       <React.Fragment>
         <Header />
-        <Typography variant="h2">{title}</Typography>
-        <Typography variant="body1">{description}</Typography>
-        <img src={imageHrefOriginal} alt="Some text" />
+        <div style={{ width: '80vw', margin: 'auto', display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h2" style={{ fontSize: '3rem' }}>
+            {title}
+          </Typography>
+          <Typography variant="body1" style={{ margin: 20 }}>
+            {description}
+          </Typography>
+          {/* TODO: Center align image for when image isn't full width */}
+          <img
+            src={imageHrefOriginal}
+            alt={title}
+            style={{ margin: 20, border: 'solid 10px #333', borderRadius: 5 }}
+          />
+          {/* TODO: Use MUI table for easier styling */}
+          {metadata && (
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'right', paddingRight: 10 }}>Metadata</th>
+                  <th style={{ textAlign: 'left' }}>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* TODO: Don't include metadata where the value is missing */}
+                {sortedMetadataKeys.map((metaKey) => {
+                  return (
+                    <tr key={metaKey}>
+                      <td style={{ textAlign: 'right', paddingRight: 10 }}>{metaKey}</td>
+                      <td style={{ textAlign: 'left' }}>
+                        {metadata[metaKey as keyof ImageExifData] || '-'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
       </React.Fragment>
     );
   }
-
   return <div></div>;
 };
