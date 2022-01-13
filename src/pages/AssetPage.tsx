@@ -1,8 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { Header } from '../components/header/Header';
-import { useFetchAssetQuery, useFetchMetaDataQuery } from '../api/nasaApiSlice';
-import { MetadataTable } from '../components/metadata-table/MetadataTable';
+import { useFetchAssetQuery, useFetchMetaDataQuery } from '../api/NasaApiSlice';
 import { Asset } from '../components/asset/Asset';
 import { LoadingMessage } from '../components/loading-message/LoadingMessage';
 

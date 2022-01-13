@@ -3,7 +3,7 @@ import { SpecificMediaItem } from '../../shared/types';
 import { SearchResult } from './search-result/SearchResult';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '../../shared/hooks';
-import { useFetchNasaAssetsQuery } from '../../api/nasaApiSlice';
+import { useFetchNasaAssetsQuery } from '../../api/NasaApiSlice';
 import { LoadingMessage } from '../loading-message/LoadingMessage';
 
 export const SearchResults = () => {
