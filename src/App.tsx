@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { SearchPage } from './components/search/SearchPage';
-import { MediaAsset } from './components/media-asset/MediaAsset';
+import { SearchPage } from './pages/SearchPage';
+import { AssetPage } from './pages/AssetPage';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Route path="/" element={<SearchPage />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="search/:query" element={<SearchPage />} />
-        <Route path="asset/:id" element={<MediaAsset />} />
+        <Route path="asset/:id" element={<AssetPage />} />
       </Routes>
     </div>
   );

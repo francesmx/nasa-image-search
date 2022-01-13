@@ -8,24 +8,24 @@ import { useQuery } from '../../shared/hooks';
 export const SearchBar: React.FC = () => {
   const [searchBarInput, setSearchBarInput] = useState('');
   const navigate = useNavigate();
-  const params = new URLSearchParams();
-  // custom hook to help us get query params via react-router
-  let query = useQuery();
+  const queryParams = useQuery(); // gets query params via react-router
+  const paramsToBeAppended = new URLSearchParams(); // so we can append query to URL
 
   useEffect(() => {
-    const q = query.get('q');
+    // if user navigates to a page with a query param, set search bar to contain param
+    const q = queryParams.get('q');
     if (q) {
       setSearchBarInput(q);
     }
-  }, [query]);
+  }, [queryParams]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchBarInput(event.target.value);
   };
 
   const handleClick = () => {
-    params.append('q', searchBarInput);
-    navigate({ search: params.toString() });
+    paramsToBeAppended.append('q', searchBarInput);
+    navigate({ search: paramsToBeAppended.toString() });
   };
 
   return (

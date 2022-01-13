@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { Typography } from '@mui/material';
-import { useFetchMetaDataQuery, useFetchAssetQuery } from '../../api/NasaApiSlice';
-import { Header } from '../header/Header';
-import { ImageExifData } from '../../shared/types';
+import { ImageExifData } from '../shared/types';
+import { Header } from '../components/header/Header';
+import { useFetchAssetQuery, useFetchMetaDataQuery } from '../api/NasaApiSlice';
 
-export const MediaAsset: React.FC = () => {
+export const AssetPage: React.FC = () => {
   const { id } = useParams();
   const { data: metadata, isFetching: metadataLoading } = useFetchMetaDataQuery(id);
   const { data: imageData, isFetching: imageLoading } = useFetchAssetQuery(id);

@@ -1,7 +1,7 @@
 import './SearchResult.css';
 import { Typography } from '@mui/material';
 import React from 'react';
-import { SpecificMediaItem } from '../../shared/types';
+import { SpecificMediaItem } from '../../../shared/types';
 
 type SearchResultProps = {
   item: SpecificMediaItem;
@@ -12,6 +12,7 @@ export const SearchResult: React.FC<SearchResultProps> = ({ item }) => {
   const imageTitle = item.data[0].title;
   const imageHref = item.links[0].href;
 
+  // TODO Handle failed images
   return (
     <li key={item.data[0].nasa_id} className="imageListItem">
       <a href={`asset/${nasaId}`}>
