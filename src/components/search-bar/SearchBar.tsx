@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import { useQuery } from '../../shared/hooks';
 
-export const SearchBar: React.FC = () => {
+export const SearchBar = () => {
   const [searchBarInput, setSearchBarInput] = useState('');
   const navigate = useNavigate();
   const queryParams = useQuery(); // gets query params via react-router

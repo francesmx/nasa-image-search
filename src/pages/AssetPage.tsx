@@ -1,68 +1,41 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { Typography } from '@mui/material';
-import { ImageExifData } from '../shared/types';
 import { Header } from '../components/header/Header';
-import { useFetchAssetQuery, useFetchMetaDataQuery } from '../api/NasaApiSlice';
+import { useFetchAssetQuery, useFetchMetaDataQuery } from '../api/nasaApiSlice';
+import { MetadataTable } from '../components/metadata-table/MetadataTable';
+import { Asset } from '../components/asset/Asset';
+import { LoadingMessage } from '../components/loading-message/LoadingMessage';
 
 export const AssetPage: React.FC = () => {
+  // both assets require metadata, so the data fetching happens in the parent here
   const { id } = useParams();
   const { data: metadata, isFetching: metadataLoading } = useFetchMetaDataQuery(id);
   const { data: imageData, isFetching: imageLoading } = useFetchAssetQuery(id);
 
   if (imageLoading || metadataLoading) {
-    return <Typography>Loading...</Typography>;
+    return (
+      <React.Fragment>
+        <Header />
+        <LoadingMessage />
+      </React.Fragment>
+    );
   }
 
   if (imageData && metadata) {
-    const title = metadata['AVAIL:Title'];
-    const description = metadata['AVAIL:Description'];
-    const imageHrefOriginal = imageData.collection.items[0].href;
-    const sortedMetadataKeys = Object.keys(metadata).sort();
+    console.log(id);
+    console.log(metadata);
+
+    const title = metadata['XMP:Title'];
+    const description = metadata['XMP:Description'];
+    const imageUrl = imageData.collection.items[0].href;
 
     return (
       <React.Fragment>
         <Header />
-        <div style={{ width: '80vw', margin: 'auto', display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h2" style={{ fontSize: '3rem' }}>
-            {title}
-          </Typography>
-          <Typography variant="body1" style={{ margin: 20 }}>
-            {description}
-          </Typography>
-          {/* TODO: Center align image for when image isn't full width */}
-          <img
-            src={imageHrefOriginal}
-            alt={title}
-            style={{ margin: 20, border: 'solid 10px #333', borderRadius: 5 }}
-          />
-          {/* TODO: Use MUI table for easier styling */}
-          {metadata && (
-            <table>
-              <thead>
-                <tr>
-                  <th style={{ textAlign: 'right', paddingRight: 10 }}>Metadata</th>
-                  <th style={{ textAlign: 'left' }}>Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* TODO: Don't include metadata where the value is missing */}
-                {sortedMetadataKeys.map((metaKey) => {
-                  return (
-                    <tr key={metaKey}>
-                      <td style={{ textAlign: 'right', paddingRight: 10 }}>{metaKey}</td>
-                      <td style={{ textAlign: 'left' }}>
-                        {metadata[metaKey as keyof ImageExifData] || '-'}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <Asset title={title} description={description} imageUrl={imageUrl} />
+        <MetadataTable metadata={metadata} />
       </React.Fragment>
     );
   }
-  return <div></div>;
+  return <div>Nothing was found</div>;
 };

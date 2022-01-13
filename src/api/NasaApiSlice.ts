@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AssetResponse, ImageExifData, NasaApiResponse } from '../shared/types';
 
+// uses RTK Query which creates custom hooks to fetch data - is amazing for caching
 export const nasaApiSlice = createApi({
   reducerPath: 'nasaApi',
   baseQuery: fetchBaseQuery({

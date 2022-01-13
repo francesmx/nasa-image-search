@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
-import logo from '../../assets/images/nasa-logo.png';
+import logo from '../../images/nasa-logo.png';
 
-export const Header: React.FC = () => {
+export const Header = () => {
   return (
     <div
       style={{

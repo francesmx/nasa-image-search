@@ -76,7 +76,7 @@ export type ImageExifData = {
   'EXIF:YResolution': number;
   'ExifTool:ExifToolVersion': number; // 10.05
   'File:BitsPerSample': number;
-  "'File:ColorComponents": number;
+  'File:ColorComponents': number;
   'File:CurrentIPTCDigest': string;
   'File:Directory': string;
   'File:EncodingProcess': string;

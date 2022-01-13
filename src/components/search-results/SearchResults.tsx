@@ -3,9 +3,10 @@ import { SpecificMediaItem } from '../../shared/types';
 import { SearchResult } from './search-result/SearchResult';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '../../shared/hooks';
-import { useFetchNasaAssetsQuery } from '../../api/NasaApiSlice';
+import { useFetchNasaAssetsQuery } from '../../api/nasaApiSlice';
+import { LoadingMessage } from '../loading-message/LoadingMessage';
 
-export const SearchResults: React.FC = () => {
+export const SearchResults = () => {
   const queryParams = useQuery(); // gets query params via react-router
   const [skip, setSkip] = useState(true); // skip means don't make API call yet (RTK Query)
   const [queryStringFromParams, setQueryStringToSearch] = useState<string>(' ');
@@ -23,7 +24,7 @@ export const SearchResults: React.FC = () => {
   // TODO Handle no images being returned
   return (
     <React.Fragment>
-      {isFetching && <div style={{ margin: 30 }}>Loading...</div>}
+      {isFetching && <LoadingMessage />}
       {data && (
         <ul className="searchResults">
           {data.collection?.items?.map((item: SpecificMediaItem) => {
