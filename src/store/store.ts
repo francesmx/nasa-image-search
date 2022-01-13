@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { searchSlice } from '../components/search/searchSlice';
 import { nasaApiSlice } from '../api/NasaApiSlice';
 
 export const store = configureStore({
   reducer: {
+    search: searchSlice.reducer,
     [nasaApiSlice.reducerPath]: nasaApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {

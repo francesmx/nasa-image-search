@@ -3,31 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import { SearchResults } from './SearchResults';
-import { useFetchNasaAssetsQuery } from '../../api/NasaApiSlice';
 import { useQuery } from '../../shared/hooks';
 
-export const SearchBarAndResults: React.FC = () => {
-  // keeps track of what the user is typing
+export const SearchBar: React.FC = () => {
   const [searchBarInput, setSearchBarInput] = useState('');
-
-  // the query string from the URL parameter
-  const [queryStringToSearch, setQueryStringToSearch] = useState<string | null>(' ');
-
-  // skip says - don't make this API call just yet
-  const [skip, setSkip] = useState(true);
-
-  const { data, isFetching } = useFetchNasaAssetsQuery(queryStringToSearch, { skip });
   const navigate = useNavigate();
-  let query = useQuery();
   const params = new URLSearchParams();
+  // custom hook to help us get query params via react-router
+  let query = useQuery();
 
   useEffect(() => {
-    let q = query.get('q');
+    const q = query.get('q');
     if (q) {
-      setQueryStringToSearch(q);
       setSearchBarInput(q);
-      setSkip(false);
     }
   }, [query]);
 
@@ -68,8 +56,6 @@ export const SearchBarAndResults: React.FC = () => {
           }
         />
       </FormControl>
-      {isFetching && <div>Loading...</div>}
-      {data && <SearchResults items={data.collection?.items} />}
     </React.Fragment>
   );
 };

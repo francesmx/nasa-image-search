@@ -1,11 +1,13 @@
 import { Header } from '../header/Header';
-import { SearchBarAndResults } from './SearchBarAndResults';
+import { SearchBar } from './SearchBar';
+import { SearchResults } from './SearchResults';
 
 export const SearchPage: React.FC = () => {
   return (
     <div>
       <Header />
-      <SearchBarAndResults />
+      <SearchBar />
+      <SearchResults />
     </div>
   );
 };
