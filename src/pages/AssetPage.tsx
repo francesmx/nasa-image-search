@@ -22,9 +22,6 @@ export const AssetPage: React.FC = () => {
   }
 
   if (imageData && metadata) {
-    console.log(id);
-    console.log(metadata);
-
     const title = metadata['XMP:Title'];
     const description = metadata['XMP:Description'];
     const imageUrl = imageData.collection.items[0].href;
@@ -33,7 +30,8 @@ export const AssetPage: React.FC = () => {
       <React.Fragment>
         <Header />
         <Asset title={title} description={description} imageUrl={imageUrl} />
-        <MetadataTable metadata={metadata} />
+        {/* Figure out nicer way to show metadata on demand */}
+        {/* <MetadataTable metadata={metadata} /> */}
       </React.Fragment>
     );
   }
