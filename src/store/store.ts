@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { nasaApiSlice } from '../api/NasaApiSlice';
 
+// using a redux store for data fetching and caching (RTK Query)
 export const store = configureStore({
   reducer: {
     [nasaApiSlice.reducerPath]: nasaApiSlice.reducer,
