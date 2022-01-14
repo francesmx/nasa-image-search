@@ -1,31 +1,28 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import { useQuery } from '../../shared/hooks';
 
 export const SearchBar = () => {
   const [searchBarInput, setSearchBarInput] = useState('');
   const navigate = useNavigate();
-  const queryParams = useQuery(); // gets query params via react-router
-  const paramsToBeAppended = new URLSearchParams(); // so we can append query to URL
+  const [searchParams] = useSearchParams();
+  const queryString = String(searchParams.get('q'));
 
   useEffect(() => {
-    // if user navigates to a page with a query param, set search bar to contain param
-    const q = queryParams.get('q');
-    if (q) {
-      setSearchBarInput(q);
+    // if user navigates to page with query param, set search bar to reflect that
+    if (queryString !== 'null') {
+      setSearchBarInput(queryString);
     }
-  }, [queryParams]);
+  }, [queryString]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchBarInput(event.target.value);
   };
 
   const handleClick = () => {
-    paramsToBeAppended.append('q', searchBarInput);
-    navigate({ search: paramsToBeAppended.toString() });
+    navigate(`../search/?q=${searchBarInput}`, { replace: true });
   };
 
   return (

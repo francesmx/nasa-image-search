@@ -2,26 +2,23 @@ import './SearchResults.css';
 import { SpecificMediaItem } from '../../shared/types';
 import { SearchResult } from './search-result/SearchResult';
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '../../shared/hooks';
 import { useFetchNasaAssetsQuery } from '../../api/NasaApiSlice';
 import { LoadingMessage } from '../loading-message/LoadingMessage';
+import { useSearchParams } from 'react-router-dom';
 
 export const SearchResults = () => {
-  const queryParams = useQuery(); // gets query params via react-router
-  const [skip, setSkip] = useState(true); // skip means don't make API call yet (RTK Query)
-  const [queryStringFromParams, setQueryStringToSearch] = useState<string>(' ');
-  const { data, isFetching } = useFetchNasaAssetsQuery(queryStringFromParams, { skip });
+  const [searchParams] = useSearchParams();
+  const queryParam = String(searchParams.get('q'));
+  const [skip, setSkip] = useState(true); // skip means don't make API call yet
+  const { data, isFetching } = useFetchNasaAssetsQuery(queryParam, { skip });
 
   useEffect(() => {
     // the presence of a query param dictates whether the API call is made
-    const q = queryParams.get('q');
-    if (q) {
-      setQueryStringToSearch(q);
+    if (queryParam !== 'null') {
       setSkip(false);
     }
-  }, [queryParams]);
+  }, [queryParam]);
 
-  // TODO Handle no images being returned
   return (
     <React.Fragment>
       {isFetching && <LoadingMessage />}
