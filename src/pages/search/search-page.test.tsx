@@ -96,12 +96,12 @@ describe('SearchPage', () => {
       </Router>
     );
 
-    // renders header
+    // Renders header
     await screen.findByAltText('NASA logo');
     const headerElement = screen.getByRole('heading', { level: 1 });
     expect(headerElement.textContent).toBe('NASA Image, Video & Audio Library');
 
-    // renders search bar
+    // Renders search bar
     const searchBar = screen.getByLabelText(/What would you like to see/);
     expect(searchBar).toHaveValue('');
     screen.getByRole('button', { name: 'search' });
@@ -115,17 +115,23 @@ describe('SearchPage', () => {
       </Router>
     );
 
+    // Initially, search bar is empty and there are no search params
     const searchBar = await screen.findByLabelText(/What would you like to see/);
     expect(searchBar).toHaveValue('');
-
     expect(history.location.search).toMatchInlineSnapshot(`""`);
+
+    // Type in 'earth'
     userEvent.type(searchBar, 'earth');
     expect(searchBar).toHaveValue('earth');
 
+    // Hit search button
     const searchButton = screen.getByRole('button', { name: 'search' });
     userEvent.click(searchButton);
 
+    // It displays a loading state
     await screen.findByText('Loading...');
+
+    // The URL now has 'earth' as a search param
     expect(history.location.search).toMatchInlineSnapshot(`"?q=earth"`);
   });
 
@@ -137,6 +143,7 @@ describe('SearchPage', () => {
       </Router>
     );
 
+    // Again, searching for 'earth'
     const searchBar = await screen.findByLabelText(/What would you like to see/);
     userEvent.type(searchBar, 'earth');
     userEvent.click(screen.getByRole('button', { name: 'search' }));
@@ -145,7 +152,7 @@ describe('SearchPage', () => {
     const results = await screen.findAllByRole('listitem');
     expect(results.length).toBe(2);
 
-    // Each result should have some title text, and an image
+    // Each result should have some title text and an image
     within(results[0]).getByText(/The Earth & Moon/);
     within(results[0]).getByRole('img');
     within(results[0]).getByAltText(/The Earth & Moon/);
