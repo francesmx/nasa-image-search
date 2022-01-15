@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
+import { useQuery } from '../../shared/hooks';
 
 export const SearchBar = () => {
   const [searchBarInput, setSearchBarInput] = useState('');
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const queryString = String(searchParams.get('q'));
+  const history = useHistory();
+  let query = useQuery();
+  const queryString = String(query.get('q'));
 
   useEffect(() => {
     // if user navigates to page with query param, set search bar to reflect that
@@ -22,13 +23,13 @@ export const SearchBar = () => {
   };
 
   const handleClick = () => {
-    navigate(`../search/?q=${searchBarInput}`, { replace: true });
+    history.push(`../search/?q=${searchBarInput}`);
   };
 
   return (
     <React.Fragment>
       <FormControl sx={{ width: '60vw' }} variant="outlined" color="primary">
-        <InputLabel sx={{ fontSize: '1rem', color: 'white' }} htmlFor="standard-adornment-search">
+        <InputLabel sx={{ fontSize: '1rem', color: 'white' }} htmlFor="search-bar">
           What would you like to see?
         </InputLabel>
         <Input
@@ -40,7 +41,7 @@ export const SearchBar = () => {
             border: 'solid 1px white',
             borderRadius: 2,
           }}
-          id="standard-adornment-search"
+          id="search-bar"
           type="text"
           value={searchBarInput}
           onChange={handleInputChange}

@@ -1,13 +1,15 @@
 import React from 'react';
-import { useParams } from 'react-router';
-import { Header } from '../components/header/Header';
-import { useFetchAssetQuery, useFetchMetaDataQuery } from '../api/NasaApiSlice';
-import { Asset } from '../components/asset/Asset';
-import { LoadingMessage } from '../components/loading-message/LoadingMessage';
+import { useParams } from 'react-router-dom';
+import { Header } from '../../components/header/header';
+import { useFetchAssetQuery, useFetchMetaDataQuery } from '../../api/NasaApiSlice';
+import { Asset } from '../../components/asset/asset';
+import { LoadingMessage } from '../../components/loading-message/loading-message';
 
 export const AssetPage: React.FC = () => {
-  // both assets require metadata, so the data fetching happens in the parent here
-  const { id } = useParams();
+  // Both the Asset and MetadataTable components require metadata,
+  // so the data fetching happens in the parent here
+  const { id } = useParams<{ id: string }>();
+
   const { data: metadata, isFetching: metadataLoading } = useFetchMetaDataQuery(id);
   const { data: imageData, isFetching: imageLoading } = useFetchAssetQuery(id);
 
@@ -29,7 +31,7 @@ export const AssetPage: React.FC = () => {
       <React.Fragment>
         <Header />
         <Asset title={title} description={description} imageUrl={imageUrl} />
-        {/* Figure out nicer way to show metadata on demand */}
+        {/* TODO: Show metadata on demand, and style nicely */}
         {/* <MetadataTable metadata={metadata} /> */}
       </React.Fragment>
     );

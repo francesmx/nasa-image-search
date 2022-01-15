@@ -1,17 +1,30 @@
-import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { SearchPage } from './pages/SearchPage';
-import { AssetPage } from './pages/AssetPage';
+import { Route, Switch } from 'react-router-dom';
+import { SearchPage } from './pages/search/search-page';
+import { AssetPage } from './pages/asset/asset-page';
+import { HomePage } from './pages/home/home-page';
+import { NoContentPage } from './pages/no-content/no-content-page';
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<SearchPage />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="search/:query" element={<SearchPage />} />
-        <Route path="asset/:id" element={<AssetPage />} />
-      </Routes>
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/search">
+          <SearchPage />
+        </Route>
+        <Route path="/search/:query">
+          <SearchPage />
+        </Route>
+        <Route path="/asset/:id">
+          <AssetPage />
+        </Route>
+        <Route>
+          <NoContentPage />
+        </Route>
+      </Switch>
     </div>
   );
 }
