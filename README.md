@@ -1,6 +1,6 @@
 A simple web application that allows users to view images from NASA's public API.
 
-<img src="nasa-image-search.gif" width="500" />
+<img src="nasa-image-search.gif" width="600" />
 
 Uses:
 
@@ -132,7 +132,7 @@ All pages score 100% for accessibility using Lighthouse's automated checks, whic
 
 - [x] Keyboard only – Using only a keyboard (no mouse or touch), navigation is in the correct order and all interactive elements are reachable
 
-- [] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
+- [ ] Screen reader – Works with a screen reader with meaningful focus order, heading tags, image descriptions & hidden labels
 
   (I didn't have time to test with a screen reader. Much of this comes from semantic mark-up however.)
 
